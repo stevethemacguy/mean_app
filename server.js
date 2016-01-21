@@ -40,6 +40,11 @@ app.use(stylus.middleware(
 //NOTE: The __dirname here IS REQUIRED! Even though it's not initialized to anything!
 app.use(express.static(__dirname + '/public'));     //This makes public the root folder. For example, localhost:3030/favicon.ico would work,
 
+//Create a route for partials
+app.get('/partials/:partialPath', function(req, res) {
+    res.render('partials/' + req.params.partialPath);
+});
+
 //Create a route that re-routes everything to the index page
 // app.get('/'); //Normally you would use this
 app.get('*', function(request, response)
