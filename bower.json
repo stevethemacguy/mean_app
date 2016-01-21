@@ -1,6 +1,6 @@
 {
   "name": "mean-app",
-  "description": "Basic skeleton app built using the MEAN stack",
+  "description": "Basic skeleton app built using MEAN stack",
   "version": "1.0.0",
   "main": "index.js",
   "authors": [
