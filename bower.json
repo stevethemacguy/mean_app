@@ -1,0 +1,13 @@
+{
+  "name": "mean-app",
+  "description": "Basic skeleton app built using the MEAN stack",
+  "version": "1.0.0",
+  "main": "index.js",
+  "authors": [
+    "Steven Dunn"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "private": true
+}
