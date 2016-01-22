@@ -35,9 +35,9 @@ app.use(stylus.middleware(
     }
 ));
 
-//Create a public folder that can be viewable on the server. See http://expressjs.com/en/starter/static-files.html
-//The path you provide is relative to the directory from where you launch node (i.e the folder containing server.controllers)
-//NOTE: The __dirname here IS REQUIRED! Even though it's not initialized to anything!
+//Set the public "root" folder that will contain static assets on the server (images, CSS, JS files, etc)
+//The path is relative to the directory from where you launch node (i.e the folder containing server.js)
+//With this in place, you can go directly to a url like http://localhost:3000/css/styles.css
 app.use(express.static(__dirname + '/public'));     //This makes public the root folder. For example, localhost:3030/favicon.ico would work,
 
 //Create a route for partials
@@ -45,14 +45,14 @@ app.get('/partials/:partialPath', function(req, res) {
     res.render('partials/' + req.params.partialPath);
 });
 
-//Create a route that re-routes everything to the index page
-// app.get('/'); //Normally you would use this
-app.get('*', function(request, response)
-{
-    response.render('index');
-}); //Since we're using angular, we'll handle routing on the clientside
-//So this will Match all routes...image requests, JS, CSS requests, everything and send them to the index page.
-//This just means you have to be careful to set up your angular routes, including 404, etc.
+
+//Since our routing is handled by angular, this sends ALL page requests to index.html, and then angular
+//takes it from there. Because of this, make sure you handle routes that lead no-where (e.g. with a 404 or
+//just route them to index. Note: NO true, server-side 404 will ever be rendered with this method.
+//Also, this MUST be "/index", it can't be "/home", etc
+app.get('/*', function(req, res) {
+    res.sendFile(__dirname + '/index.html');
+});
 
 var port = 3030;
 app.listen(port, function () {
