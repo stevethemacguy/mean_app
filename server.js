@@ -2,7 +2,8 @@
 var express = require('express'),
     stylus = require('stylus'),
     logger = require('morgan'),
-    bodyParser = require('body-parser');   //pre-req for other middleware
+    bodyParser = require('body-parser'),  //pre-req for other middleware
+    mongoose = require('mongoose');
 
 //If node already has an enviornment variable set, use that one, otherwise use development
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -44,6 +45,13 @@ app.use(express.static(__dirname + '/public'));     //This makes public the root
 app.get('/partials/:partialPath', function(req, res) {
     res.render('partials/' + req.params.partialPath);
 });
+
+//Connect to the Mongo DB using mongooes. Note, the name that comes after local host, is the name of your database
+mongoose.connect('mongodb://localhost/mean_app'); //If it doesn't already exists, then mongo will create the database
+//Listen for other events and do some console logs to show what's going on
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, "connection error"));
+db.once('open', console.error.bind(console, "mean_app db is now open"));//listen for the open event, but only once
 
 
 //Since our routing is handled by angular, this sends ALL page requests to index.html, and then angular
