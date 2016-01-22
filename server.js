@@ -53,13 +53,24 @@ var db = mongoose.connection;
 db.on('error', console.error.bind(console, "connection error"));
 db.once('open', console.error.bind(console, "mean_app db is now open"));//listen for the open event, but only once
 
+//Create a mongoose schema. Pass in an object to describe the schema of the collection
+var messageSchema = mongoose.Schema({message: String}); //type of field is String
+var Message = mongoose.model('Message', messageSchema); //Create a model called "message" based on the schema.
+var mongoMessage;
+
+//Retrieve one thing from the data base. Callback is an error, and then the document that has been found
+Message.findOne().exec(function(err, messageDoc) {
+    mongoMessage = messageDoc.message;
+});
 
 //Since our routing is handled by angular, this sends ALL page requests to index.html, and then angular
 //takes it from there. Because of this, make sure you handle routes that lead no-where (e.g. with a 404 or
 //just route them to index. Note: NO true, server-side 404 will ever be rendered with this method.
 //Also, this MUST be "/index", it can't be "/home", etc
-app.get('/*', function(req, res) {
-    res.sendFile(__dirname + '/index.html');
+app.get('*', function(req, res) {
+    res.render('index', {
+        mongoMessage: mongoMessage
+    });
 });
 
 var port = 3030;
