@@ -2,8 +2,7 @@
 var express = require('express'),
     stylus = require('stylus'),
     logger = require('morgan'),
-    bodyParser = require('body-parser'),  //pre-req for other middleware
-    mongoose = require('mongoose');
+    bodyParser = require('body-parser');  //pre-req for other middleware
 
 //If node already has an enviornment variable set, use that one, otherwise use development
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -41,36 +40,12 @@ app.use(stylus.middleware(
 //With this in place, you can go directly to a url like http://localhost:3000/css/styles.css
 app.use(express.static(__dirname + '/public'));     //This makes public the root folder. For example, localhost:3030/favicon.ico would work,
 
-//Create a route for partials
-app.get('/partials/:partialPath', function(req, res) {
-    res.render('partials/' + req.params.partialPath);
+app.get('/', function(req, res) {
+    res.json("Use /products to get a list of JSON objects");
 });
 
-//Connect to the Mongo DB using mongooes. Note, the name that comes after local host, is the name of your database
-mongoose.connect('mongodb://localhost/mean_app'); //If it doesn't already exists, then mongo will create the database
-//Listen for other events and do some console logs to show what's going on
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, "connection error"));
-db.once('open', console.error.bind(console, "mean_app db is now open"));//listen for the open event, but only once
-
-//Create a mongoose schema. Pass in an object to describe the schema of the collection
-var messageSchema = mongoose.Schema({message: String}); //type of field is String
-var Message = mongoose.model('Message', messageSchema); //Create a model called "message" based on the schema.
-var mongoMessage;
-
-//Retrieve one thing from the data base. Callback is an error, and then the document that has been found
-Message.findOne().exec(function(err, messageDoc) {
-    mongoMessage = messageDoc.message;
-});
-
-//Since our routing is handled by angular, this sends ALL page requests to index.html, and then angular
-//takes it from there. Because of this, make sure you handle routes that lead no-where (e.g. with a 404 or
-//just route them to index. Note: NO true, server-side 404 will ever be rendered with this method.
-//Also, this MUST be "/index", it can't be "/home", etc
-app.get('*', function(req, res) {
-    res.render('index', {
-        mongoMessage: mongoMessage
-    });
+app.get('/products', function(req, res) {
+    res.sendFile(__dirname + '/public/products.json');
 });
 
 var port = 3030;

@@ -1,0 +1,110 @@
+[
+  {
+    "id": 1,
+    "name": "Apple",
+    "price": 1.5,
+    "img": "images/apple.png"
+  },
+  {
+    "id": 2,
+    "name": "Pencil",
+    "price": 0.5,
+    "img": "images/pencil.png"
+  },
+  {
+    "id": 3,
+    "name": "Xbox",
+    "price": 199.99,
+    "img": "images/xbox.png"
+  },
+  {
+    "id": 4,
+    "name": "Sony Camera",
+    "price": 60,
+    "img": "images/camera.png"
+  },
+  {
+    "id": 5,
+    "name": "LOTR Trilogy; Blue Ray",
+    "price": 49.99,
+    "img": "images/dvd.png"
+  },
+  {
+    "id": 6,
+    "name": "Band aids",
+    "price": 2.5,
+    "img": "images/band.png"
+  },
+  {
+    "id": 7,
+    "name": "Apple pie",
+    "price": 5,
+    "img": "images/pie.png"
+  },
+  {
+    "id": 8,
+    "name": "Tennis ball (x10)",
+    "price": 5.49,
+    "img": "images/ball.png"
+  },
+  {
+    "id": 9,
+    "name": "Diamond necklace",
+    "price": 20000,
+    "img": "images/diamond.png"
+  },
+  {
+    "id": 10,
+    "name": "Hand grenade",
+    "price": 15,
+    "img": "images/grenade.png"
+  },
+  {
+    "id": 11,
+    "name": "Printer",
+    "price": 150,
+    "img": "images/printer.png"
+  },
+  {
+    "id": 12,
+    "name": "Monitor",
+    "price": 335,
+    "img": "images/monitor.png"
+  },
+  {
+    "id": 13,
+    "name": "Book",
+    "price": 5,
+    "img": "images/book.png"
+  },
+  {
+    "id": 14,
+    "name": "Couch",
+    "price": 189,
+    "img": "images/couch.gif"
+  },
+  {
+    "id": 15,
+    "name": "Silverware",
+    "price": 189,
+    "img": "images/silver.png"
+  },
+  {
+    "id": 16,
+    "name": "Watch",
+    "price": 189,
+    "img": "images/watch.png"
+  },
+  {
+    "id": 17,
+    "name": "Flowers",
+    "price": 189,
+    "img": "images/flowers.png"
+  },
+  {
+    "id": 18,
+    "name": "Cup",
+    "price": 189,
+    "img": "images/cup.png"
+  }
+]
