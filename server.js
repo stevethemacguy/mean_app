@@ -41,11 +41,15 @@ app.use(stylus.middleware(
 app.use(express.static(__dirname + '/public'));     //This makes public the root folder. For example, localhost:3030/favicon.ico would work,
 
 app.get('/', function(req, res) {
-    res.json("Use /products to get a list of JSON objects");
+    res.json("Use /products to get a list of JSON objects or /shipping to retrieve shipping data");
 });
 
 app.get('/products', function(req, res) {
     res.sendFile(__dirname + '/public/products.json');
+});
+
+app.get('/shipping', function(req, res) {
+    res.sendFile(__dirname + '/public/data.json');
 });
 
 var port = process.env.PORT || 3030;
