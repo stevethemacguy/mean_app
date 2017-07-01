@@ -9,12 +9,24 @@ var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var app = express();
 
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+
+    // intercept OPTIONS method
+    if ('OPTIONS' === req.method) {
+        res.send(200);
+    }
+    else {
+        next();
+    }
+};
+
 //Set up stylus
 function compile(str, path) {
     return stylus(str).set('filename', path);
 }
-
-//Configuration
 
 //Path where you'll store your views
 app.set('views', __dirname + '/server/views');
@@ -25,15 +37,14 @@ app.set('view engine', 'jade');
 //Other crap. Turn on express logging and configure stylus.
 app.use(logger('dev'));
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
 app.use(stylus.middleware(
     {
         src: __dirname + '/public',
         compile: compile
     }
 ));
+
+app.use(allowCrossDomain);
 
 //Set the public "root" folder that will contain static assets on the server (images, CSS, JS files, etc)
 //The path is relative to the directory from where you launch node (i.e the folder containing server.js)
